@@ -14,7 +14,7 @@ async def intake(
     form_text: Optional[str] = Form(None),
     file: UploadFile | None = File(None),
     email: Optional[str] = Form(None),
-    Appointment_time: Optional[datetime] = Form(None)
+   
 ):   
 
     state = {}
@@ -34,7 +34,6 @@ async def intake(
             "phone": phone,
             "email": email,
             "appointment_status": "scheduled",
-            "appointment_time": Appointment_time,
             "remainder_sent": False,
             "status":"intake_completed", 
             "comformation_sent": False,

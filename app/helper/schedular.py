@@ -6,7 +6,7 @@ scheduler = BackgroundScheduler()
 scheduler.add_job(
     reminder_job,
     "interval",
-    day=1,
+    days=1,
 )
 
 scheduler.start()

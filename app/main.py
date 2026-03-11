@@ -4,9 +4,11 @@ from app.db.db_config import engine
 from app.db.models import Base
 from app.api.enter_docter_pres import enter_docter
 from app.helper.schedular import scheduler
+
 app = FastAPI()
 app.include_router(inta)
 app.include_router(enter_docter)
+
 
 
 @app.on_event("startup")
