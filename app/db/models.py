@@ -39,4 +39,13 @@ class DoctorSchedule(Base):
     id = Column(Integer, primary_key=True)
     doctor_id = Column(Integer)
     slot_time = Column(DateTime)
-    is_booked = Column(Boolean, default=False)    
+    is_booked = Column(Boolean, default=False)
+
+
+
+
+
+
+
+    
+        
