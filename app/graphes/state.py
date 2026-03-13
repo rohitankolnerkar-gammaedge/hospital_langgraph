@@ -17,5 +17,6 @@ class ClinicState(TypedDict):
     comformation_sent: bool
     Appointment_id: str
     summary_sent: bool
+    raw_text:str
 
 

@@ -3,6 +3,8 @@ from typing import Optional
 from app.graphes.graph import graph
 from app.helper.pdf_extractor import extract_pdf
 from datetime import datetime
+import uuid
+thread_id = str(uuid.uuid4())
 inta = APIRouter(prefix="/api")
 
 @inta.post("/intake")
@@ -21,10 +23,12 @@ async def intake(
 
     if form_text:
         state["raw_text"] = form_text
-
+        
     elif file:
         pdf_text = extract_pdf(file)
+        print("Extracted Text:", pdf_text)   
         state["raw_text"] = pdf_text
+        
 
     else:
         state = {
@@ -37,9 +41,10 @@ async def intake(
             "remainder_sent": False,
             "status":"intake_completed", 
             "comformation_sent": False,
-            "summary_sent": False
+            "summary_sent": False,
+            "raw_text":""
         }
 
-    result = graph.invoke(state)
+    result = graph.invoke(state,config={"configurable": {"thread_id": thread_id}})
 
     return result

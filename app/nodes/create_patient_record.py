@@ -4,7 +4,7 @@ from app.db.models import PatientRecord
    
 def create_patient_record(state: ClinicState):
     db = SessionLocal()
-
+    print("STATE RECEIVED:", state)
     email = state.get("email")
     patient = db.query(PatientRecord).filter(PatientRecord.email == email).first()
 
@@ -13,7 +13,7 @@ def create_patient_record(state: ClinicState):
         patient.patient_name = state.get("patient_name", patient.patient_name)
         patient.dob = state.get("dob", patient.dob)
         patient.symptoms = state.get("symptoms", patient.symptoms)
-
+        print(f"Patient record created/updated for {patient.patient_name} with email {patient.email}")
         db.commit()
         db.refresh(patient)
 
@@ -25,13 +25,13 @@ def create_patient_record(state: ClinicState):
             phone=state.get("phone"),
             symptoms=state.get("symptoms"),
         )
-
+        print(f"Patient record created/updated for {patient.patient_name} with email {patient.email}")
         db.add(patient)
         db.commit()
         db.refresh(patient)
-
+    
     db.close()
-
+    
     
 
     return {"patient_id": patient.id, "status": "record_created"}

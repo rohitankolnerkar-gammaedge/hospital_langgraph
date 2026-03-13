@@ -23,7 +23,7 @@ class Appointment(Base):
 
     patient_id = Column(Integer, ForeignKey("patients.id"))
 
-    appointment_time = Column(DateTime)
+    appointment_time = Column(DateTime,nullable=True)
     status = Column(String, default="scheduled")
 
     reminder_sent = Column(Boolean, default=False)
