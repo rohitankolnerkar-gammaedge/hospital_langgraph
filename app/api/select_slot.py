@@ -8,20 +8,20 @@ from app.api.intake_api import thread_id
 
 select_sl = APIRouter(prefix="/api")
 
-@select_sl.post("/select_slot/{patient_id}/{slot_time}/{doctor_id}")
-def select_slot(patient_id: int, slot_id: int, doctor_id: int):
+@select_sl.post("/select_slot/{patient_id}/{slot_id}/{doctor_id}")
+async def select_slot(patient_id: int, slot_id: int, doctor_id: int):
 
     db = SessionLocal()
 
    
-    patient = db.query(PatientRecord).filter_by(id=patient_id).first()
+    patient =  db.query(PatientRecord).filter_by(id=patient_id).first()
 
     if not patient:
         db.close()
         return {"error": "Patient not found"}
 
   
-    doctor_slot = db.query(DoctorSchedule).filter_by(
+    doctor_slot =  db.query(DoctorSchedule).filter_by(
         doctor_id=doctor_id,
         id=slot_id
     ).first()
@@ -52,7 +52,7 @@ def select_slot(patient_id: int, slot_id: int, doctor_id: int):
     db.close()
 
     
-    result = graph.invoke(
+    result = await graph.ainvoke(
         Command(
             resume={
                 "appointment_time": slot_time

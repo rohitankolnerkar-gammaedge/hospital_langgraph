@@ -5,12 +5,12 @@ from app.db.db_config import SessionLocal
 from fastapi import HTTPException
 from mcp.client.session import ClientSession
 from mcp.client.sse import sse_client
-async def send_reminder(state: ClinicState):
+async def send_reminder(email,appointment_time,patient_name,appointment_id):
 
-    email = state.get("email")
-    appointment_time = state.get("appointment_time")
-    patient_name = state.get("patient_name")
-    appointment_id = state.get("appointment_id")
+    email = email
+    appointment_time = appointment_time
+    patient_name = patient_name
+    appointment_id = appointment_id
 
     if not email or not appointment_time or not patient_name:
         return {"status": "missing_info", "reminder_sent": False}

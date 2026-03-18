@@ -2,21 +2,20 @@ from app.db.db_config import SessionLocal
 from app.db.models import Appointment, PatientRecord
 from app.nodes.send_remainder import send_reminder
 
-
-def reminder_job():
+async def reminder_job():
 
     print("Checking appointments for reminders...")
 
     db = SessionLocal()
 
-    appointments = db.query(Appointment).filter(
+    appointments = await db.query(Appointment).filter(
         Appointment.status == "scheduled",
         Appointment.reminder_sent == False
     ).all()
 
     for appt in appointments:
 
-        patient = db.query(PatientRecord).filter(
+        patient = await db.query(PatientRecord).filter(
             PatientRecord.id == appt.patient_id
         ).first()
 
